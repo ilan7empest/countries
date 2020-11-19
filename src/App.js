@@ -12,6 +12,7 @@ class App extends Component {
         <Switch>
           <Route path='/countries/:country' component={CountryDetails} />
           <Route path='/countries' component={Countries} />
+          <Route path='/about' render={() => <h1>About</h1>} />
           <Redirect from='/' to='/countries' />
           <Route path='*' render={() => <h1>Page Not Found</h1>} />
         </Switch>

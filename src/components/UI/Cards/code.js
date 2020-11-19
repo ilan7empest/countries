@@ -5,7 +5,7 @@ const code = (props) => {
   let callingCodes = props.callingCodes || [];
   return (
     <div>
-      <h5>Country Codes</h5>
+      <h5 className='bg-warning text-white p-3 m-0'>Country Codes</h5>
       <table className='table table-striped f-14'>
         <tbody>
           <tr>

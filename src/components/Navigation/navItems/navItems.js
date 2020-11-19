@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const navItems = [{ id: 1, label: 'Test', link: '/text' }];
+const navItems = [{ id: 1, label: 'About', link: '/about' }];
 const navigationItems = (props) => [
   ...navItems.map((item) => (
     <li className='nav-item' key={item.id}>

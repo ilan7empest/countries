@@ -6,6 +6,7 @@ import Code from '../../components/UI/Cards/code';
 import Genearl from '../../components/UI/Cards/general';
 import Names from '../../components/UI/Cards/names';
 import Geo from '../../components/UI/Cards/geo';
+import Breadcrumbs from '../../components/UI/Breadcrumbs/breadcrumbs';
 
 import classes from './CountryDetails.module.css';
 
@@ -16,11 +17,10 @@ class CountryDetails extends Component {
   };
 
   componentDidMount() {
-    this.loadData();
+    this.loadData(this.props.match.params.country);
   }
 
-  loadData() {
-    const { country } = this.props.match.params;
+  loadData(country) {
     this.setState({ loading: true });
     axiosInstance
       .get('/name/' + country)
@@ -30,6 +30,11 @@ class CountryDetails extends Component {
       .then((res) => this.setState({ country: res, loading: false }))
       .catch((err) => console.log(err));
   }
+
+  handleClick = (e, border) => {
+    console.log(border);
+    this.loadData(border);
+  };
 
   render() {
     const { name, nativeName, flag } = this.state.country;
@@ -41,7 +46,7 @@ class CountryDetails extends Component {
           </div>
           <div className='col-md-6'>
             <Code {...this.state.country} />
-            <Geo {...this.state.country} />
+            <Geo onClick={this.handleClick} {...this.state.country} />
           </div>
         </div>
       </Fragment>
@@ -52,6 +57,7 @@ class CountryDetails extends Component {
     }
     return (
       <div className='d-flex flex-wrap'>
+        <Breadcrumbs />
         <div className='w-100 d-flex align-items-center'>
           <h2 className='mr-2'>{name}</h2>
           <small>({nativeName})</small>
@@ -65,7 +71,7 @@ class CountryDetails extends Component {
               <Genearl {...this.state.country} />
             </div>
           </aside>
-          <article className='flex-grow-1 ml-lg-5 mt-5 mt-lg-0'>
+          <article className='flex-grow-1 ml-lg-5 mt-3 mt-lg-0'>
             {renderContent}
           </article>
         </div>

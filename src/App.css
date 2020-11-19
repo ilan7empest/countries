@@ -6,7 +6,7 @@
   font-size: 1rem;
 }
 .multiple:not(:last-child) {
-  margin-right: 4px;
+  margin: 0 3px;
 }
 .multiple:not(:last-child)::after {
   content: ',';

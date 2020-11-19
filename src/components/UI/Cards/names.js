@@ -17,7 +17,7 @@ const names = (props) => {
 
   return (
     <div>
-      <h5>Country Names</h5>
+      <h5 className='bg-info text-white p-3 m-0'>Country Names</h5>
       <table className='table table-striped f-14'>
         <tbody>
           <tr>

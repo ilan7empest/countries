@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import NavItems from '../navItems/navItems';
+// import NavItems from '../navItems/navItems';
 // import MobileToggle from '../MobileToggle/mobileToggle';
 
 const mainNav = (props) => {
@@ -11,9 +11,9 @@ const mainNav = (props) => {
         <NavLink className='navbar-brand' to='/'>
           Countries App
         </NavLink>
-        <ul className='navbar-nav mr-auto'>
+        {/* <ul className='navbar-nav mr-auto'>
           <NavItems />
-        </ul>
+        </ul> */}
       </div>
     </nav>
   );
