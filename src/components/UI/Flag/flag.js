@@ -1,7 +1,7 @@
 import React from 'react';
 
-const flag = ({ name, flag }) => (
-  <img src={flag} alt={name} className='img-thumbnail' />
+const flag = ({ name, flag, classes }) => (
+  <img src={flag} alt={name} className={classes} />
 );
 
 export default flag;

@@ -29,23 +29,23 @@ class CountryDetails extends Component {
 
   render() {
     const { name, flag } = this.state.country;
-    let details;
-    this.state.loading
-      ? (details = <Spinner />)
-      : (details = (
-          <div>
-            <div className=''>
-              <Flag name={name} flag={flag} />
-            </div>
-          </div>
-        ));
+    let characteristics = <div>Hello</div>;
+
+    if (this.state.loading) {
+      characteristics = <Spinner />;
+    }
     return (
       <div className='container'>
         <div className='d-flex'>
+          <aside className={classes.aside}>
+            <div className={classes.flag}>
+              <Flag name={name} flag={flag} classes='card-img-top shadow' />
+            </div>
+          </aside>
           <article className='flex-grow-1 mr-5'>
             <h2>{name}</h2>
+            {characteristics}
           </article>
-          <aside className={classes.aside}>{details}</aside>
         </div>
       </div>
     );

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import axiosInstance from '../../utils/http';
-import Card from '../../components/UI/Card/card';
+import MainCard from '../../components/UI/Cards/mainCard';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Search from '../../components/UI/Search/search';
-import SearchDropdown from '../../components/UI/Dropdown/drodown';
+// import SearchDropdown from '../../components/UI/Dropdown/drodown';
 
 class Countries extends Component {
   state = {
@@ -45,8 +45,8 @@ class Countries extends Component {
     let countryList = [];
     countryList = filteredCountries.map((country, index) => {
       return country ? (
-        <div className='col-4 col-lg-2 mb-4' key={index}>
-          <Card
+        <div className='col-md-4 col-lg-3 mb-4' key={index}>
+          <MainCard
             onClick={this.handleViewCountry.bind(this, country.name)}
             {...country}
           />
@@ -59,12 +59,10 @@ class Countries extends Component {
     return (
       <div>
         <div className='my-4'>
-          <SearchDropdown />
           <Search
             placeholder='Search Country'
             onChange={(e) => this.onSearch(e)}
           />
-          <div className='filter'></div>
         </div>
         <div className='row'>{countryList}</div>
       </div>

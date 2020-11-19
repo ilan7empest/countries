@@ -1,0 +1,23 @@
+.img {
+  border-radius: 0;
+  padding: 3px;
+  background-color: var(--white);
+  max-width: 100px;
+  max-height: 70px;
+}
+.multiple:not(:last-child)::after {
+  content: ',';
+}
+.card {
+  transform: scale(1);
+  transition: transform 0.2s ease-in-out;
+}
+.card:hover {
+  cursor: pointer;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  transform: scale(1.05);
+  transition: transform 0.2s ease-in-out;
+}
+.header {
+  height: 90px;
+}
