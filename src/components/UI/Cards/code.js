@@ -1,17 +1,24 @@
 import React from 'react';
 
-const code = (props) => {
-  let currencies = props.currencies || [];
-  let callingCodes = props.callingCodes || [];
+const code = ({
+  currencies,
+  callingCodes,
+  alpha2Code,
+  alpha3Code,
+  numericCode,
+  topLevelDomain,
+}) => {
+  let currenciesArr = currencies || [];
+  let callingCodesArr = callingCodes || [];
   return (
     <div>
       <h5 className='bg-warning text-white p-3 m-0'>Country Codes</h5>
       <table className='table table-striped f-14'>
         <tbody>
           <tr>
-            <th>Calling {currencies.length > 1 ? 'Codes' : 'Code'}</th>
+            <th>Calling {callingCodesArr.length > 1 ? 'Codes' : 'Code'}</th>
             <td>
-              {callingCodes.map((callingCode, i) => (
+              {callingCodesArr.map((callingCode, i) => (
                 <span key={i} className='multiple'>
                   +{callingCode}
                 </span>
@@ -20,20 +27,20 @@ const code = (props) => {
           </tr>
           <tr>
             <th>Alpha2 Code</th>
-            <td>{props.alpha2Code}</td>
+            <td>{alpha2Code}</td>
           </tr>
           <tr>
             <th>Alpha3 Code</th>
-            <td>{props.alpha3Code}</td>
+            <td>{alpha3Code}</td>
           </tr>
           <tr>
             <th>Numeric Code</th>
-            <td>{props.numericCode}</td>
+            <td>{numericCode}</td>
           </tr>
           <tr>
-            <th>Currency {currencies.length > 1 ? 'Codes' : 'Code'}</th>
+            <th>Currency {currenciesArr.length > 1 ? 'Codes' : 'Code'}</th>
             <td>
-              {currencies.map((currency, i) => (
+              {currenciesArr.map((currency, i) => (
                 <span key={i} className='multiple'>
                   {currency.code}
                 </span>
@@ -42,7 +49,7 @@ const code = (props) => {
           </tr>
           <tr>
             <th>Top Level Domain Code</th>
-            <td>{props.topLevelDomain}</td>
+            <td>{topLevelDomain}</td>
           </tr>
         </tbody>
       </table>

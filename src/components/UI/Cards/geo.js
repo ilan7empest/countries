@@ -1,8 +1,15 @@
 import React from 'react';
-
-const geo = (props) => {
-  let borders = props.borders || [];
-  let regionalBlocs = props.regionalBlocs || [];
+const geo = ({
+  borders,
+  regionalBlocs,
+  region,
+  subregion,
+  demonym,
+  area,
+  latlng,
+}) => {
+  let bordersArr = borders || [];
+  let regionalBlocsArr = regionalBlocs || [];
   return (
     <div>
       <h5 className='bg-success text-white p-3 m-0'>Geo Loaction</h5>
@@ -10,11 +17,11 @@ const geo = (props) => {
         <tbody>
           <tr>
             <th>Region</th>
-            <td>{props.region}</td>
+            <td>{region}</td>
           </tr>
           <tr>
             <th>Sub Region</th>
-            <td>{props.subregion}</td>
+            <td>{subregion}</td>
           </tr>
           <tr>
             <th colSpan='2' className='f-16 text-success'>
@@ -24,7 +31,7 @@ const geo = (props) => {
           <tr>
             <th>Name</th>
             <td>
-              {regionalBlocs.map((regionalBlock, i) => (
+              {regionalBlocsArr.map((regionalBlock, i) => (
                 <span key={i} className='multiple'>
                   {regionalBlock.name}
                 </span>
@@ -34,7 +41,7 @@ const geo = (props) => {
           <tr>
             <th>Acronym</th>
             <td>
-              {regionalBlocs.map((regionalBlock, i) => (
+              {regionalBlocsArr.map((regionalBlock, i) => (
                 <span key={i} className='multiple'>
                   {regionalBlock.acronym}
                 </span>
@@ -44,7 +51,7 @@ const geo = (props) => {
           <tr>
             <th>Other Names</th>
             <td>
-              {regionalBlocs.map((regionalBlock, i) =>
+              {regionalBlocsArr.map((regionalBlock, i) =>
                 regionalBlock.otherNames.map((names, index) => (
                   <span key={index} className='multiple'>
                     {names}
@@ -55,18 +62,29 @@ const geo = (props) => {
           </tr>
           <tr>
             <th>Demonym</th>
-            <td>{props.demonym}</td>
+            <td>{demonym}</td>
           </tr>
           <tr>
             <th>Area</th>
             <td>
-              {props.area}Km<sup>2</sup>
+              {area}Km<sup>2</sup>
             </td>
           </tr>
           <tr>
+            <th>Coordinates</th>
+            <td>
+              {latlng.map((coor, i) => (
+                <span key={i} className='multiple'>
+                  {coor}
+                </span>
+              ))}
+            </td>
+          </tr>
+
+          <tr>
             <th>Border Countries</th>
             <td>
-              {borders.map((border, i) => (
+              {bordersArr.map((border, i) => (
                 <span key={i} className='multiple'>
                   {border}
                 </span>

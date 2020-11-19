@@ -1,14 +1,14 @@
 import React from 'react';
 
-const general = (props) => {
-  let languages = props.languages || [];
+const general = ({ languages, capital, population }) => {
+  let languagesArr = languages || [];
   return (
     <table className='table f-14'>
       <tbody>
         <tr>
           <th>Native Language</th>
           <td>
-            {languages.map((language, i) => (
+            {languagesArr.map((language, i) => (
               <span className='multiple' key={i}>
                 {language.nativeName}
               </span>
@@ -17,11 +17,11 @@ const general = (props) => {
         </tr>
         <tr>
           <th>Capital</th>
-          <td>{props.capital}</td>
+          <td>{capital}</td>
         </tr>
         <tr>
           <th>Population</th>
-          <td>{props.population}</td>
+          <td>{population}</td>
         </tr>
       </tbody>
     </table>

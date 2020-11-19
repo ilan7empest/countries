@@ -33,7 +33,8 @@ class Countries extends Component {
     const { value } = e.target;
     this.setState({ search: value.toLowerCase() });
   };
-  handleViewCountry = (name) => {
+  handleViewCountry = (e, name) => {
+    e.preventDefault();
     this.props.history.push({ pathname: `${this.props.match.url}/${name}` });
   };
   render() {
@@ -47,7 +48,7 @@ class Countries extends Component {
       return country ? (
         <div className='col-md-4 col-lg-3 mb-4' key={index}>
           <MainCard
-            onClick={this.handleViewCountry.bind(this, country.name)}
+            onClick={(e) => this.handleViewCountry(e, country.name)}
             {...country}
           />
         </div>
@@ -59,10 +60,12 @@ class Countries extends Component {
     return (
       <div>
         <div className='my-4'>
-          <Search
-            placeholder='Search Country'
-            onChange={(e) => this.onSearch(e)}
-          />
+          <form onSubmit={(e) => this.handleViewCountry(e, this.state.search)}>
+            <Search
+              placeholder='Search Country'
+              onChange={(e) => this.onSearch(e)}
+            />
+          </form>
         </div>
         <div className='row'>{countryList}</div>
       </div>

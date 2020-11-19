@@ -1,9 +1,9 @@
 import React from 'react';
 
-const names = (props) => {
-  let altNames = props.altSpellings || [];
-  let translations = props.translations || {};
-  const translationKeys = Object.entries(translations);
+const names = ({ altSpellings, translations, nativeName }) => {
+  let altNames = altSpellings || [];
+  let translationsArr = translations || {};
+  const translationKeys = Object.entries(translationsArr);
 
   let renderTrans = translationKeys.map(([key, value], index) => {
     return (
@@ -22,7 +22,7 @@ const names = (props) => {
         <tbody>
           <tr>
             <th>Native Name</th>
-            <td>{props.nativeName}</td>
+            <td>{nativeName}</td>
           </tr>
           <tr>
             <th>Alternative {altNames.length > 1 ? 'Names' : 'Name'}</th>
