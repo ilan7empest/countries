@@ -1,3 +1,12 @@
 .flag {
   max-width: 290px;
+  margin: a auto;
+}
+.aside {
+  width: 100%;
+}
+@media (min-width: 992px) {
+  .aside {
+    width: 290px;
+  }
 }

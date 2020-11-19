@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './card.module.css';
+import classes from './mainCard.module.css';
 import Flag from '../Flag/flag';
 
 const card = (props) => (
@@ -23,44 +23,52 @@ const card = (props) => (
       />
     </div>
     <div className='card-body p-0 f-14'>
-      <ul class='list-group list-group-flush'>
-        <li class='list-group-item d-flex justify-content-between'>
-          <span className='font-weight-bold'>Capital</span>
+      <ul className='list-group list-group-flush'>
+        <li className='list-group-item d-flex justify-content-between'>
+          <span className='font-weight-bold mr-1'>Capital</span>
           <span>{props.capital}</span>
         </li>
-        <li class='list-group-item d-flex justify-content-between'>
-          <span className='font-weight-bold'>
+        <li className='list-group-item d-flex justify-content-between'>
+          <span className='font-weight-bold mr-1'>
             {props.languages.length > 1 ? 'Languages' : 'Language'}
           </span>
           <div className='d-flex flex-wrap justify-content-end'>
-            {props.languages.map((language) => (
-              <span class={classes.multiple}>{language.iso639_2}</span>
+            {props.languages.map((language, i) => (
+              <span key={i} className='multiple'>
+                {language.iso639_2}
+              </span>
             ))}
           </div>
         </li>
-        <li class='list-group-item d-flex justify-content-between'>
-          <span className='font-weight-bold'>
+        <li className='list-group-item d-flex justify-content-between'>
+          <span className='font-weight-bold mr-1'>
             {props.currencies.length > 1 ? 'Currencies' : 'Currency'}
           </span>
-          {props.currencies.map((currency) => (
-            <span>
-              {currency.code}/{currency.symbol}
-            </span>
-          ))}
-        </li>
-        <li class='list-group-item d-flex justify-content-between'>
-          <span className='font-weight-bold'>Timezone</span>
           <div className='d-flex flex-wrap justify-content-end'>
-            {props.timezones.map((timezone) => (
-              <span class={classes.multiple}>{timezone}</span>
+            {props.currencies.map((currency, i) => (
+              <span key={i} className='multiple'>
+                {currency.code}({currency.symbol})
+              </span>
             ))}
           </div>
         </li>
-        <li class='list-group-item d-flex justify-content-between'>
-          <span className='font-weight-bold'>Border Countries</span>
+        <li className='list-group-item d-flex justify-content-between'>
+          <span className='font-weight-bold mr-1'>Timezone</span>
           <div className='d-flex flex-wrap justify-content-end'>
-            {props.borders.map((border) => (
-              <span class={classes.multiple}>{border}</span>
+            {props.timezones.map((timezone, i) => (
+              <span key={i} className='multiple'>
+                {timezone}
+              </span>
+            ))}
+          </div>
+        </li>
+        <li className='list-group-item d-flex justify-content-between'>
+          <span className='font-weight-bold mr-1'>Border Countries</span>
+          <div className='d-flex flex-wrap justify-content-end'>
+            {props.borders.map((border, i) => (
+              <span key={i} className='multiple'>
+                {border}
+              </span>
             ))}
           </div>
         </li>
