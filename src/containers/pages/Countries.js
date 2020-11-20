@@ -4,14 +4,14 @@ import MainCard from '../../components/UI/Cards/mainCard';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Search from '../../components/UI/Search/search';
 import { REGION_NAMES } from '../../_shared/region-list';
-import Badge from '../../components/UI/Badge/badge';
+import Dropdown from '../../components/UI/Dropdown/dropdown';
+import DropdownItem from '../../components/UI/Dropdown/DropdownItem/dropdownItem';
 
 class Countries extends Component {
   state = {
     countries: [],
     loading: false,
     search: '',
-    viewFilter: false,
     filterByRegion: false,
     regionAcrynom: '',
     regionName: '',
@@ -40,23 +40,15 @@ class Countries extends Component {
       search: value.toLowerCase(),
       filterByRegion: false,
       regionName: '',
-      viewFilter: false,
     });
   };
 
   onFilterRegion = (region, name) => {
-    this.onViewFilter();
     this.setState({
       filterByRegion: true,
       regionAcrynom: region,
       regionName: name,
     });
-  };
-
-  onViewFilter = () => {
-    this.setState((currentState) => ({
-      viewFilter: !currentState.viewFilter,
-    }));
   };
 
   handleViewCountry = (e, name) => {
@@ -120,17 +112,15 @@ class Countries extends Component {
       countryList = <Spinner />;
     }
 
-    let badges;
-    if (this.state.viewFilter) {
-      badges = REGION_NAMES.map((region, i) => (
-        <Badge
-          key={i}
-          class='dropdown-item f-14 font-weight-light p-2 my-1 mr-2'
-          onClick={() => this.onFilterRegion(region.name, region.label)}>
-          {region.label}
-        </Badge>
-      ));
-    }
+    let regionNames;
+    regionNames = REGION_NAMES.map((region, i) => (
+      <DropdownItem
+        key={i}
+        onClick={() => this.onFilterRegion(region.name, region.label)}
+        class='f-14 font-weight-light p-2 my-1 mr-2'>
+        {region.label}
+      </DropdownItem>
+    ));
     return (
       <div>
         <div className='my-1'>
@@ -142,26 +132,10 @@ class Countries extends Component {
               onChange={(e) => this.onSearch(e)}
             />
           </form>
-
-          <div className={this.state.viewFilter ? 'dropdown show' : 'dropdown'}>
-            <div className='badges d-flex align-items-center mt-2 mb-4'>
-              <button
-                className='btn btn-secondary dropdown-toggle'
-                onClick={() => this.onViewFilter()}>
-                Filter By Region
-              </button>
-              <h3 className='w-100 ml-4 mb-0 text-primary'>
-                {this.state.regionName}
-              </h3>
-            </div>
-
-            <div
-              class={
-                this.state.viewFilter ? 'dropdown-menu show' : 'dropdown-menu'
-              }>
-              {badges}
-            </div>
-          </div>
+          <Dropdown label='Filter By Region'>{regionNames}</Dropdown>
+          <h3 className='w-100 ml-4 mb-0 text-primary'>
+            {this.state.regionName}
+          </h3>
         </div>
         <div className='row'>{countryList}</div>
       </div>

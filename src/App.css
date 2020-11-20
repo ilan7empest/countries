@@ -1,10 +1,13 @@
 .f-14 {
   font-size: 0.875rem;
 }
-
 .f-16 {
   font-size: 1rem;
 }
+.pointer {
+  cursor: pointer;
+}
+
 .multiple:not(:last-child) {
   margin: 0 3px;
 }
