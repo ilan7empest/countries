@@ -8,7 +8,7 @@ const mainNav = (props) => {
     <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
       <div className='container'>
         {/* <MobileToggle /> */}
-        <NavLink className='navbar-brand' to='/'>
+        <NavLink className='navbar-brand' to='/countries'>
           Countries App
         </NavLink>
         {/* <ul className='navbar-nav mr-auto'>

@@ -8,7 +8,7 @@ const breadcrumbs = (props) => {
     <nav aria-label='breadcrumb' className='w-100'>
       <ol className='breadcrumb my-4'>
         <li className='breadcrumb-item'>
-          <Link to='/'>Home</Link>
+          <Link to='/countries'>Home</Link>
         </li>
         <li className='breadcrumb-item active' aria-current='page'>
           {countryName}

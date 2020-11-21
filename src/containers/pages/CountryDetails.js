@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { withRouter } from 'react-router-dom';
 import _ from 'lodash';
 import axiosInstance from '../../utils/http';
 import Spinner from '../../components/UI/Spinner/Spinner';
@@ -80,4 +81,4 @@ class CountryDetails extends Component {
   }
 }
 
-export default CountryDetails;
+export default withRouter(CountryDetails);

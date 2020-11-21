@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axiosInstance from '../../utils/http';
+import { withRouter } from 'react-router-dom';
 import MainCard from '../../components/UI/Cards/mainCard';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Search from '../../components/UI/Search/search';
@@ -10,31 +10,12 @@ import DropdownItem from '../../components/UI/Dropdown/DropdownItem/dropdownItem
 
 class Countries extends Component {
   state = {
-    countries: [],
-    loading: false,
     search: '',
     filterByRegion: false,
     selected: false,
     regionAcrynom: '',
     regionName: '',
   };
-
-  componentDidMount() {
-    this.loadData();
-  }
-
-  loadData() {
-    this.setState({ loading: true });
-    axiosInstance
-      .get('/all')
-      .then((res) => {
-        return res.data;
-      })
-      .then((res) => this.setState({ countries: res, loading: false }))
-      .catch((err) => {
-        console.log(err);
-      });
-  }
 
   onSearch = (e) => {
     const { value } = e.target;
@@ -72,14 +53,8 @@ class Countries extends Component {
   };
 
   render() {
-    const {
-      countries,
-      search,
-      filterByRegion,
-      regionAcrynom,
-      regionName,
-      loading,
-    } = this.state;
+    const { countries, loading } = this.props;
+    const { search, filterByRegion, regionAcrynom, regionName } = this.state;
 
     let card = (country, index) => (
       <div className='col-md-4 col-lg-3 mb-4' key={index}>
@@ -90,9 +65,6 @@ class Countries extends Component {
       </div>
     );
     let countryList = [];
-    if (loading) {
-      countryList = <Spinner />;
-    }
     if (!filterByRegion) {
       countryList = Filter.filterByCountryName(countries, search).map(
         (country, index) => {
@@ -105,6 +77,9 @@ class Countries extends Component {
           return country ? card({ ...country }, index) : null;
         }
       );
+    }
+    if (loading) {
+      countryList = <Spinner />;
     }
     return (
       <div>
@@ -149,4 +124,4 @@ class Countries extends Component {
   }
 }
 
-export default Countries;
+export default withRouter(Countries);
