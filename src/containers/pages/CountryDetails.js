@@ -29,14 +29,11 @@ class CountryDetails extends Component {
         return res.data[0];
       })
       .then((res) => this.setState({ country: res, loading: false }))
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        this.setState({ loading: false });
+      });
   }
-
-  handleClick = (e, border) => {
-    console.log(border);
-    this.loadData(border);
-  };
-
   render() {
     const { name, nativeName, flag } = this.state.country;
     let renderContent = (
@@ -68,16 +65,15 @@ class CountryDetails extends Component {
         </div>
       </Fragment>
     );
-    if (_.isEmpty(this.state.country)) {
+    if (_.isEmpty(this.state.country) && this.props.match.params.country) {
       renderContent = <h2>Couldn't find a matching country by that name</h2>;
     }
-    if (this.state.loading && !_.isEmpty(this.state.country)) {
+    if (this.state.loading) {
       renderContent = <Spinner />;
     }
     return (
       <div className='d-flex flex-wrap'>
         <Breadcrumbs />
-
         {renderContent}
       </div>
     );

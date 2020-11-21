@@ -5,6 +5,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import Search from '../../components/UI/Search/search';
 import { REGION_NAMES } from '../../_shared/region-list';
 import Dropdown from '../../components/UI/Dropdown/dropdown';
+import * as Filter from '../../utils/filter';
 import DropdownItem from '../../components/UI/Dropdown/DropdownItem/dropdownItem';
 
 class Countries extends Component {
@@ -13,6 +14,7 @@ class Countries extends Component {
     loading: false,
     search: '',
     filterByRegion: false,
+    selected: false,
     regionAcrynom: '',
     regionName: '',
   };
@@ -38,104 +40,108 @@ class Countries extends Component {
     const { value } = e.target;
     this.setState({
       search: value.toLowerCase(),
+      selected: false,
       filterByRegion: false,
+      regionAcrynom: '',
       regionName: '',
     });
   };
 
-  onFilterRegion = (region, name) => {
+  onFilterRegion = (name, label) => {
     this.setState({
+      search: '',
+      selected: true,
       filterByRegion: true,
-      regionAcrynom: region,
-      regionName: name,
+      regionAcrynom: name,
+      regionName: label,
     });
   };
 
-  handleViewCountry = (e, name) => {
+  onViewCountry = (e, name) => {
     e.preventDefault();
     this.props.history.push({ pathname: `${this.props.match.url}/${name}` });
   };
 
-  //Filter Countries by Region
-  filterByRegion = () =>
-    this.state.countries
-      .filter((country) =>
-        country.regionalBlocs.some(
-          (regionalBloc) => regionalBloc.acronym === this.state.regionAcrynom
-        )
-      )
-      .map((country) => {
-        let newElt = Object.assign({}, country); // copies element
-        newElt.regionalBlocs = newElt.regionalBlocs.filter(
-          (regionalBloc) => regionalBloc.acronym === this.state.regionAcrynom
-        );
-        return newElt;
-      });
-
-  //Filter Countries by search value
-  filteredCountries = () =>
-    this.state.countries.filter((country) => {
-      return (
-        country.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !==
-        -1
-      );
+  onResetDropdown = () => {
+    this.setState({
+      selected: false,
+      filterByRegion: false,
+      regionAcrynom: '',
+      regionName: '',
     });
+  };
 
   render() {
-    const { filterByRegion, regionAcrynom } = this.state;
+    const {
+      countries,
+      search,
+      filterByRegion,
+      regionAcrynom,
+      regionName,
+      loading,
+    } = this.state;
 
+    let card = (country, index) => (
+      <div className='col-md-4 col-lg-3 mb-4' key={index}>
+        <MainCard
+          onClick={(e) => this.onViewCountry(e, country.name)}
+          {...country}
+        />
+      </div>
+    );
     let countryList = [];
-    if (filterByRegion && regionAcrynom !== '') {
-      countryList = this.filterByRegion().map((country, index) => {
-        return country ? (
-          <div className='col-md-4 col-lg-3 mb-4' key={index}>
-            <MainCard
-              onClick={(e) => this.handleViewCountry(e, country.name)}
-              {...country}
-            />
-          </div>
-        ) : null;
-      });
-    } else {
-      countryList = this.filteredCountries().map((country, index) => {
-        return country ? (
-          <div className='col-md-4 col-lg-3 mb-4' key={index}>
-            <MainCard
-              onClick={(e) => this.handleViewCountry(e, country.name)}
-              {...country}
-            />
-          </div>
-        ) : null;
-      });
-    }
-    if (this.state.loading) {
+    if (loading) {
       countryList = <Spinner />;
     }
-
-    let regionNames;
-    regionNames = REGION_NAMES.map((region, i) => (
-      <DropdownItem
-        key={i}
-        onClick={() => this.onFilterRegion(region.name, region.label)}
-        class='f-14 font-weight-light p-2 my-1 mr-2'>
-        {region.label}
-      </DropdownItem>
-    ));
+    if (!filterByRegion) {
+      countryList = Filter.filterByCountryName(countries, search).map(
+        (country, index) => {
+          return country ? card({ ...country }, index) : null;
+        }
+      );
+    } else {
+      countryList = Filter.filterByCountryRegion(countries, regionAcrynom).map(
+        (country, index) => {
+          return country ? card({ ...country }, index) : null;
+        }
+      );
+    }
     return (
       <div>
         <div className='my-1'>
           <form
             className='flex-grow-1 mb-3'
-            onSubmit={(e) => this.handleViewCountry(e, this.state.search)}>
+            onSubmit={(e) => this.onViewCountry(e, search)}>
             <Search
-              placeholder='Search Country'
+              value={this.state.search}
+              placeholder='Search for a Country'
               onChange={(e) => this.onSearch(e)}
             />
           </form>
-          <Dropdown label='Filter By Region'>{regionNames}</Dropdown>
-          <h3 className='w-100 ml-4 mb-0 text-primary'>
-            {this.state.regionName}
-          </h3>
+          <Dropdown
+            selected={this.state.selected}
+            reset={this.onResetDropdown}
+            label={regionName !== '' ? regionName : 'Filter By Region'}>
+            {REGION_NAMES.map(({ name, label }, i) => (
+              <DropdownItem
+                key={i}
+                onClick={() => this.onFilterRegion(name, label)}
+                class='f-14 p-2 my-1 mr-2'>
+                {label}
+              </DropdownItem>
+            ))}
+          </Dropdown>
+
+          <h4 className='mt-4 mb-2 border-bottom border-primary text-primary'>
+            Coutries of the World
+            <span className='text-capitalize'>
+              {search !== ''
+                ? ` - ${search}`
+                : regionName !== ''
+                ? ` - ${regionName}`
+                : ''}
+            </span>
+          </h4>
         </div>
         <div className='row'>{countryList}</div>
       </div>
