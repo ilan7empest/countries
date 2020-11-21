@@ -1,0 +1,41 @@
+.dropdownMenu {
+  max-height: 250px;
+  overflow-y: scroll;
+}
+.dropdownToggle {
+  padding: 10px 48px 10px 10px;
+  color: var(--gray);
+  display: inline-block;
+  cursor: pointer;
+  border: none;
+  text-align: left;
+  background-color: transparent;
+  position: relative;
+}
+.dropdownToggle:hover {
+  color: var(--gray);
+}
+.dropdownToggle::before {
+  content: ' ';
+  z-index: 1;
+  position: absolute;
+  height: 20px;
+  top: 15px;
+  right: 34px;
+  border-left: 1px solid #cbd2d7;
+}
+.dropdownToggle::after {
+  content: ' ';
+  position: absolute;
+  z-index: 1;
+  top: 23px;
+  right: 13px;
+  border-top: 6px solid #7b8e9b;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  transition: transform 0.3s ease-in-out;
+}
+
+.flipArrow::after {
+  transform: rotateZ(180deg);
+}

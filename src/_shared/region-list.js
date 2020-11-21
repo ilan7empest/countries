@@ -1,5 +1,4 @@
 export const REGION_NAMES = [
-  { name: '', label: 'All Regions' },
   { name: 'EU', label: 'European Union' },
   { name: 'EFTA', label: 'European Free Trade Association' },
   { name: 'CARICOM', label: 'Caribbean Community' },

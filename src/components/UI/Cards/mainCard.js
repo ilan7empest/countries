@@ -18,7 +18,7 @@ const card = (props) => (
       </div>
       <Flag
         flag={props.flag}
-        alt={props.title}
+        name={props.name}
         classes={['card-img-top shadow', classes.img].join(' ')}
       />
     </div>

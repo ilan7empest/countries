@@ -11,9 +11,8 @@ class App extends Component {
     return (
       <Layout header={<MainNav />} footer={<Footer />}>
         <Switch>
+          <Route path='/countries' exact component={Countries} />
           <Route path='/countries/:country' component={CountryDetails} />
-          <Route path='/countries' component={Countries} />
-          <Route path='/about' render={() => <h1>About</h1>} />
           <Redirect from='/' to='/countries' />
           <Route path='*' render={() => <h1>Page Not Found</h1>} />
         </Switch>
