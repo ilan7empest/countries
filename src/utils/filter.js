@@ -1,5 +1,5 @@
 //Filter Countries by Region
-const filterByCountryRegion = (arr, acrynom) =>
+const filterByCountryRegion = (arr = [], acrynom) =>
   arr
     .filter((country) =>
       country.regionalBlocs.some(
@@ -15,10 +15,9 @@ const filterByCountryRegion = (arr, acrynom) =>
     });
 
 //Filter Countries by search value
-const filterByCountryName = (arr, value) => {
-  return arr.filter((country) => {
+const filterByCountryName = (arr = [], value) =>
+  arr.filter((country) => {
     return country.name.toLowerCase().indexOf(value.toLowerCase()) !== -1;
   });
-};
 
 export { filterByCountryRegion, filterByCountryName };
