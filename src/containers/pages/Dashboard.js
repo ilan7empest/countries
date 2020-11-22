@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import axiosInstance from '../../utils/http';
-import Countries from './Countries';
-import CountryDetails from './CountryDetails';
+import asyncComponent from '../../hoc/asyncComponent';
+
+const AsyncCountries = asyncComponent(() => import('./Countries'));
+const AsyncCountryDetails = asyncComponent(() => import('./CountryDetails'));
 
 class Dashboard extends Component {
   state = {
@@ -32,8 +34,11 @@ class Dashboard extends Component {
   render() {
     return (
       <Switch>
-        <Route path='/countries/:country' render={() => <CountryDetails />} />
-        <Route path='/countries' render={() => <Countries {...this.state} />} />
+        <Route path='/countries/:country' component={AsyncCountryDetails} />
+        <Route
+          path='/countries'
+          render={() => <AsyncCountries {...this.state} />}
+        />
       </Switch>
     );
   }
