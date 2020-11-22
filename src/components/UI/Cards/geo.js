@@ -10,6 +10,8 @@ const geo = ({
 }) => {
   let bordersArr = borders || [];
   let regionalBlocsArr = regionalBlocs || [];
+
+  area = area.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   return (
     <div>
       <h5 className='bg-success text-white p-3 m-0'>Geo Loaction</h5>

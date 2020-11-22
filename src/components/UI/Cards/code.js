@@ -2,29 +2,18 @@ import React from 'react';
 
 const code = ({
   currencies,
-  callingCodes,
   alpha2Code,
   alpha3Code,
   numericCode,
   topLevelDomain,
 }) => {
   let currenciesArr = currencies || [];
-  let callingCodesArr = callingCodes || [];
+
   return (
     <div>
       <h5 className='bg-warning text-white p-3 m-0'>Country Codes</h5>
       <table className='table table-striped f-14'>
         <tbody>
-          <tr>
-            <th>Calling {callingCodesArr.length > 1 ? 'Codes' : 'Code'}</th>
-            <td>
-              {callingCodesArr.map((callingCode, i) => (
-                <span key={i} className='multiple'>
-                  +{callingCode}
-                </span>
-              ))}
-            </td>
-          </tr>
           <tr>
             <th>Alpha2 Code</th>
             <td>{alpha2Code}</td>

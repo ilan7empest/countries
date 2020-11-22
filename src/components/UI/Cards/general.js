@@ -1,7 +1,9 @@
 import React from 'react';
 
-const general = ({ languages, capital, population }) => {
+const general = ({ languages, capital, population, callingCodes }) => {
   let languagesArr = languages || [];
+  let callingCodesArr = callingCodes || [];
+  population = population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   return (
     <table className='table f-14'>
       <tbody>
@@ -22,6 +24,16 @@ const general = ({ languages, capital, population }) => {
         <tr>
           <th>Population</th>
           <td>{population}</td>
+        </tr>
+        <tr>
+          <th>Calling {callingCodesArr.length > 1 ? 'Codes' : 'Code'}</th>
+          <td>
+            {callingCodesArr.map((callingCode, i) => (
+              <span key={i} className='multiple'>
+                +{callingCode}
+              </span>
+            ))}
+          </td>
         </tr>
       </tbody>
     </table>
